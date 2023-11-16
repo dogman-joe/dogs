@@ -1,0 +1,18 @@
+Initial commit dogs kernel
+
+Current Functionality:
+-start up clock that keeps track of timer ticks
+-extensible IRQ handler with initial timer tick IRQ handler
+-simple gpio led light library
+
+works on:
+-Pocket beagle
+-beagle bone black (MUST press alternate boot S2 button during startup)
+
+Build:
+
+make
+
+flash sd:
+
+./flash_sd.sh
