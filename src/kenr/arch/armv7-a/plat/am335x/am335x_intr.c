@@ -2,7 +2,7 @@
 #include "plat_proto.h"
 #include "am335x_intr_regs.h"
 
-extern void irq_handle();
+extern void irq_handle(unsigned int irq);
 
 void irq_init()
 {

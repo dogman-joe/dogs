@@ -1,8 +1,8 @@
 #include "proto.h"
+#include "dogproc.h"
 
 extern void dummy();
-extern void PUT32 ( unsigned int, unsigned int );
-extern unsigned int GET32 ( unsigned int );
+extern void switch_context (unsigned int );
 
 //TODO: add debug define macro
 extern void dogpio_init ( );
@@ -12,6 +12,7 @@ extern void early_debug_light_led3();
 
 int notmain ( void )
 {
+
   /* initialize process table */
   dogproc_init();
 
@@ -36,8 +37,14 @@ int notmain ( void )
   for(rb = 0; rb < 0x20000;rb++)
     ra++;
 
-  early_debug_light_led2();
+  early_debug_light_led3();
 
+  // swicth to init user proc
+  struct dogproc *dog = &dogs[0];
+
+  switch_context((unsigned int) dog);
+
+  // never reach!!
   while(1)
     {
     }

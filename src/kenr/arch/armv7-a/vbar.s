@@ -10,6 +10,7 @@ exc_vector_table:
     ldr pc, =irq_entry             /* Interrupt */
     ldr pc, =invalid_exc           /* Fast Interrupt */
 
+.balign	0x100
 .globl irq_entry
 irq_entry:
   stmfd sp!, {r0-r12, lr}

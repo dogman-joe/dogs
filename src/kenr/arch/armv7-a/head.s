@@ -4,12 +4,14 @@
 .syntax unified
 .data
 
+.equ MODE_USR, 0x10
 .equ MODE_IRQ, 0x12
 .equ MODE_SVC, 0x13
+.equ MODE_SYS, 0x1F
 
 .section ".text.head"
 
-.balign	4
+.balign	0x100
 
 .globl _start
 _head:
@@ -18,22 +20,11 @@ _head:
     msr cpsr_c, MODE_IRQ
     ldr sp, =_irq_stack_end
 
-    /* Supervisor mode */
-    msr cpsr_c, MODE_SVC
-
+    msr cpsr_c, MODE_SYS
     ldr sp, =_init_stack_end
+
     bl notmain
 hang: b hang
-
-.globl PUT32
-PUT32:
-    str r1,[r0]
-    bx lr
-
-.globl GET32
-GET32:
-    ldr r0,[r0]
-    bx lr
 
 .globl write_vbar
 write_vbar:

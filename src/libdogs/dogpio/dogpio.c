@@ -1,3 +1,6 @@
+#include "types.h"
+#include "arch/armv7-a/io.h"
+
 //LED
 #define GPIO1_BASE              0x4804C000
 #define GPIO1_OE                (GPIO1_BASE+0x134)
@@ -7,10 +10,6 @@
 #define CM_PER_L4LS_CLKCTRL       (CM_PER_BASE+0x00)
 #define CM_PER_GPIO1_CLKCTRL    (CM_PER_BASE+0xAC)
 #define CM_PER_TIMER2_CLKCTRL (CM_PER_BASE+0x80)
-
-extern void dummy();
-extern void PUT32 ( unsigned int, unsigned int );
-extern unsigned int GET32 ( unsigned int );
 
 void early_debug_light_led()
 {
