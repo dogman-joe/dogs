@@ -2,7 +2,6 @@
 #include "string.h"
 
 extern void  plat_timer_irq_handle();
-extern void early_debug_light_led2();
 
 void dogclock_init()
 {

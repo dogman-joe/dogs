@@ -6,9 +6,7 @@ extern void switch_context (unsigned int );
 
 //TODO: add debug define macro
 extern void dogpio_init ( );
-extern void early_debug_light_led();
-extern void early_debug_light_led2();
-extern void early_debug_light_led3();
+extern void light_led(unsigned int led);
 
 int notmain ( void )
 {
@@ -24,7 +22,7 @@ int notmain ( void )
   /* architecure specific init */
   arch_init();
 
-  early_debug_light_led();
+  light_led(0);
 
   /* initialize interrupts for platform */
   irq_init();
@@ -37,10 +35,10 @@ int notmain ( void )
   for(rb = 0; rb < 0x20000;rb++)
     ra++;
 
-  early_debug_light_led3();
+  light_led(2);
 
   // swicth to init user proc
-  struct dogproc *dog = &dogs[0];
+  struct dogproc *dog = &dogs[1];
 
   switch_context((unsigned int) dog);
 

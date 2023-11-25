@@ -11,31 +11,16 @@
 #define CM_PER_GPIO1_CLKCTRL    (CM_PER_BASE+0xAC)
 #define CM_PER_TIMER2_CLKCTRL (CM_PER_BASE+0x80)
 
-void early_debug_light_led()
+void light_led(unsigned int led)
 {
-  int led = 1 << 21;
+  led = led % 4;
+  led = 1 << led;
+  led = led << 21;
 
   PUT32(GPIO1_SETDATAOUT,led);
 
   return;
-}
 
-void early_debug_light_led2()
-{
-  int led = 2 << 21;
-
-  PUT32(GPIO1_SETDATAOUT,led);
-
-  return;
-}
-
-void early_debug_light_led3()
-{
-  int led = 4 << 21;
-
-  PUT32(GPIO1_SETDATAOUT,led);
-
-  return;
 }
 
 void dogpio_init()

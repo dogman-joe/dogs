@@ -26,7 +26,6 @@ void plat_irq_unmask(u8 irq)
     return;
 }
 
-extern void early_debug_light_led2();
 void plat_irq_handle()
 {
   u32 irq_n;
