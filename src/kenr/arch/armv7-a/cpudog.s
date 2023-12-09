@@ -1,6 +1,10 @@
 .section ".text"
 .balign	0x100
 
+.globl do_sysdog
+do_sysdog:
+   svc 0
+
 .globl switch_context
 switch_context:
     mov sp, r0

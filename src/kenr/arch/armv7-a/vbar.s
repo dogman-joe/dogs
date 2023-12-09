@@ -3,7 +3,7 @@
 exc_vector_table:
     ldr pc, =invalid_exc           /* Reset */
     ldr pc, =invalid_exc           /* Reset */
-    ldr pc, =invalid_exc           /* Fast Interrupt */
+    ldr pc, =svc_entry           /* Fast Interrupt */
     ldr pc, =invalid_exc           /* Fast Interrupt */
     ldr pc, =invalid_exc           /* Fast Interrupt */
     ldr pc, =invalid_exc           /* Fast Interrupt */
@@ -11,6 +11,11 @@ exc_vector_table:
     ldr pc, =invalid_exc           /* Fast Interrupt */
 
 .balign	0x100
+.global svc_entry
+svc_entry:
+    mov r0, #3
+    b light_led
+
 .globl irq_entry
 irq_entry:
   stmfd sp!, {r0-r12, lr}

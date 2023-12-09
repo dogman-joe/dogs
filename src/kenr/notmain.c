@@ -22,27 +22,18 @@ int notmain ( void )
   /* architecure specific init */
   arch_init();
 
-  light_led(0);
 
   /* initialize interrupts for platform */
   irq_init();
 
-  start_dogtime();
+  /*start_dogtime(); */
 
-  int ra,rb = 0;
-
-  // cause delay for timer IRQ to be activated before reaching final while loop
-  for(rb = 0; rb < 0x20000;rb++)
-    ra++;
-
-  light_led(2);
-
-  // swicth to init user proc
-  struct dogproc *dog = &dogs[1];
+  /* swicth to init user proc*/
+  struct dogproc *dog = &dogs[0];
 
   switch_context((unsigned int) dog);
 
-  // never reach!!
+  /* never reach!! */
   while(1)
     {
     }

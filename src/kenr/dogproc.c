@@ -3,6 +3,13 @@
 #define USR_MODE        0x10
 
 extern void light_led();
+extern void do_sysdog();
+
+void user_prog(unsigned int led)
+{
+  light_led(led);
+  do_sysdog();
+}
 
 void dogproc_init(void)
 {
@@ -12,7 +19,7 @@ void dogproc_init(void)
   for (dog = BEG_PROC_ADDR, i = 0; i < NUM_DOGS; dog++, i++)
     {
       dog->p_reg.r0 = i;
-      dog->p_reg.lr = (unsigned int) &light_led;
+      dog->p_reg.lr = (unsigned int) &user_prog;
       dog->p_reg.psr = (unsigned int) USR_MODE;
       dog->p_reg.sp = (unsigned int) 0x402F4000;
 
