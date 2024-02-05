@@ -11,10 +11,9 @@ exc_vector_table:
     ldr pc, =invalid_exc           /* Fast Interrupt */
 
 .balign	0x100
-.global svc_entry
 svc_entry:
     mov r0, #3
-    b light_led
+    b hello
 
 .globl irq_entry
 irq_entry:
@@ -31,6 +30,16 @@ irq_entry:
   ldmfd sp!, {r0-r12, lr}
 
   subs pc, lr, #4
+
+.globl enable_irq
+enable_irq:
+    cpsie i
+    bx lr
+
+.globl disable_irq
+disable_irq:
+    cpsid i
+    bx lr
 
 .global invalid_exc
 invalid_exc:

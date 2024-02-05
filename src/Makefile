@@ -1,4 +1,4 @@
-MODULES=kenr libdogs
+MODULES=libdogs kenr
 
 all:
 	for dir in $(MODULES); do \

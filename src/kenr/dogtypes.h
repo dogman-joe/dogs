@@ -2,8 +2,7 @@
 #define _DOG_TYPE_H
 
 #include "types.h"
-#include "arch/armv7-a/inc/stackframe.h"
-
+#include "stackframe.h"
 /* Definitions of data structure types used in kernel*/
 
 /* Dog proc Structure */

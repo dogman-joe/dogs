@@ -2,28 +2,26 @@
 #include "plat_proto.h"
 #include "am335x_intr_regs.h"
 
-extern void irq_handle(unsigned int irq);
-
-void irq_init()
+void plat_irq_unmask(u8 irq)
 {
-  PUT32(INTC_SYSCONFIG, 0x02);
-
-  while(1)
-    {
-
-      if ((GET32(INTC_SYSSTATUS) & 0x01) == 1) break;
-    }
-
-
-  PUT32(INTC_MIR_CLEAR2, 0x10);
+  int irq_bit = 1 << (irq % 32);
+  PUT32(INTC_MIR_CLEAR_BANK(irq), irq_bit);
 
   return;
 }
 
-void plat_irq_unmask(u8 irq)
+void irq_init()
 {
-  PUT32(INTC_MIR_CLEAR2, 0x10);
-    return;
+
+  PUT32(INTC_SYSCONFIG, 0x02);
+
+  while(1)
+  {
+
+    if ((GET32(INTC_SYSSTATUS) & 0x01) == 1) break;
+  }
+
+  return;
 }
 
 void plat_irq_handle()

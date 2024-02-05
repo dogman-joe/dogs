@@ -21,7 +21,6 @@ struct stackframe_t {
 	reg_t r12;                    /*  ip */
 	reg_t sp;                     /*  r13 */
 	reg_t lr;                     /*  r14 */
-	reg_t pc;                     /*  r15  */
 	reg_t psr;
 };
 

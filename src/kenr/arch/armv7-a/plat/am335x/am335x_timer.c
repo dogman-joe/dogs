@@ -28,12 +28,13 @@ void plat_timer_init()
 
 void plat_timer_start()
 {
-  dtimer->TCLR=  (u32)0x01;
+  plat_irq_unmask(68);
+
+  dtimer->TCLR = (u32)0x03;
 }
 
 void plat_timer_irq_handle()
 {
-
   dtimer->IRQ_EOI =  (u32)0x00;
   dtimer->IRQ_STAT = (u32)0x07;
 }

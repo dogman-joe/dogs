@@ -1,7 +1,9 @@
-all: ${BUILD_DIR}/dogpio.o
+LIBS= $(LIBDOGS)
 
-.PHONY arch_code:
-	$(MAKE) -C arch/armv7-a
+all:
+	for dir in $(LIBS); do \
+	  (cd $$dir; ${MAKE} all);\
+	  done
 
-${BUILD_DIR}/dogpio.o: dogpio/dogpio.c
-	$(ARMGNU)-gcc $(COPS) -c ./dogpio/dogpio.c -o ${BUILD_DIR}/dogpio.o
+
+

@@ -24,10 +24,6 @@ _head:
     msr cpsr_c, MODE_SVC
     ldr sp, =_kenr_stack_end
 
-
-    msr cpsr_c, MODE_SYS
-    ldr sp, =_init_stack_end
-
     bl notmain
 hang: b hang
 

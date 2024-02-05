@@ -1,0 +1,8 @@
+export PLAT=am335x
+export ARCH=armv7-a
+
+export ARMGNU ?= arm-none-eabi
+export AOPS = --warn --fatal-warnings
+export COPS = -I${INC_DIR} -Wall -Werror -nostdlib -nostartfiles -ffreestanding
+
+export LIBDOGS = hellodog

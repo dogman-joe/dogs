@@ -1,12 +1,4 @@
 #include "proto.h"
-#include "dogproc.h"
-
-extern void dummy();
-extern void switch_context (unsigned int );
-
-//TODO: add debug define macro
-extern void dogpio_init ( );
-extern void light_led(unsigned int led);
 
 int notmain ( void )
 {
@@ -17,26 +9,25 @@ int notmain ( void )
   /* initialize kernel clock data strucutre */
   dogclock_init();
 
-  dogpio_init();
-
   /* architecure specific init */
   arch_init();
-
 
   /* initialize interrupts for platform */
   irq_init();
 
-  /*start_dogtime(); */
+  /* start dog tick clock*/
+  start_dogtime();
 
-  /* swicth to init user proc*/
+  struct dogproc olddog;
   struct dogproc *dog = &dogs[0];
 
-  switch_context((unsigned int) dog);
+  /* switch to first dog */
+  switch_context(&olddog, dog);
 
   /* never reach!! */
   while(1)
-    {
-    }
+  {
+  }
 
   return(0);
 }

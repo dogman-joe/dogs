@@ -14,6 +14,10 @@
 #define CM_PER_GPIO1_CLKCTRL    (CM_PER_BASE+0xAC)
 #define CM_PER_TIMER2_CLKCTRL (CM_PER_BASE+0x80)
 
+extern void plat_irq_unmask(u8 irq);
+
+extern void irq_handle(u32);
+
 void plat_timer_init();
 void plat_timer_start();
 

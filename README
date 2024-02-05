@@ -6,13 +6,17 @@ Current Functionality:
 -simple gpio led light library
 
 works on:
--Pocket beagle
--beagle bone black (MUST press alternate boot S2 button during startup)
-
+Armv7-a
+  -Pocket beagle
+  -beagle bone black (MUST press alternate boot S2 button during startup)
+aarch64:
+  -rpi4b
 Build:
+
+./configure.sh $(plat_name)
 
 make
 
 flash sd:
 
-./flash_sd.sh
+./flashdog.sh

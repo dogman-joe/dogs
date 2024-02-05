@@ -8,7 +8,7 @@
 
 #include "dogtypes.h"
 
-
+#include "dogproc.h"
 
 extern void dogproc_init(void);
 extern void dogclock_init(void);
