@@ -1,0 +1,27 @@
+
+EXTERN(_head)
+
+MEMORY
+{
+    ram : ORIGIN = 0x0000, LENGTH = 0x20000
+}
+
+SECTIONS
+{
+    .text.head : { *(.head) }
+    .text.cpudog : { *(.cpudog) }
+    .text.entry : { *(.entry) }
+    .text.dogint : { *(.dogint) }
+    .text : {
+        *(.text.*)
+        *(.rodata*)
+     } > ram
+    .data : {
+        *(.data.*)
+     } > ram
+
+    . = ALIGN(16);
+    __bss_start = .;
+    .bss : { *(.bss*) } > ram
+    __bss_end = .;
+}

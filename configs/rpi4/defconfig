@@ -1,0 +1,8 @@
+export PLAT=rpi4b
+export ARCH=aarch64
+
+export ARMGNU ?= aarch64-none-elf
+export AOPS = --warn --fatal-warnings
+export COPS = -I${INC_DIR} -Wall -Werror -nostdlib -nostartfiles -ffreestanding
+
+export LIBDOGS = dogprint hellodog
