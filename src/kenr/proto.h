@@ -1,10 +1,10 @@
-#ifndef _KENR_PROTO_H
-#define _KENR_PROTO_H
+#ifndef PROTO_H_
+#define PROTO_H_
 
 /* Definitions of global variables and functions usedin multiple files in top
  * layer of kernel code */
 
-// SHOULD onlybe included in notmain
+/* SHOULD onlybe included in notmain */
 
 #include "dogtypes.h"
 
@@ -18,4 +18,4 @@ extern void arch_init();
 
 extern void irq_init();
 
-#endif   /* _KENR_PROTO_H */
+#endif   /* PROTO_H_ */

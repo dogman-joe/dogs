@@ -1,11 +1,9 @@
-#include "arch.h"
 #include "stackframe.h"
-#include "proto.h"
+#include "arch_proto.h"
 
 extern int exc_vector_table;
 
-void arch_dogproc_init(struct stackframe_t *dog, int entry)
-{
+void arch_dogproc_init(struct stackframe_t *dog, int entry) {
   dog->r0 =(reg_t)entry;
   dog->lr = (reg_t)hello;
 
@@ -16,8 +14,7 @@ void arch_dogproc_init(struct stackframe_t *dog, int entry)
   return;
 }
 
-void arch_init()
-{
+void arch_init() {
   write_vbar((u32) &exc_vector_table);
 
   plat_init();

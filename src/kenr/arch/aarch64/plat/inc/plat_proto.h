@@ -1,5 +1,5 @@
-#ifndef _PLAT_PROTO_H
-#define _PLAT_PROTO_H
+#ifndef PLAT_PROTO_H_
+#define PLAT_PROTO_H_
 
 #include "types.h"
 #include "arch/armv7-a/io.h"
@@ -16,14 +16,14 @@
 #define GPPUD     0xFE2000E4
 #define GPPUDCLK0 0xFE200098
 
-#define IRQ_PENDING_0	        (0xFE00B200)
-#define ENABLE_IRQS_0		((u32 *)0xFE00B210)
-#define ENABLE_IRQS(n)		((ENABLE_IRQS_0 + ((n/32) * 4)))
+#define IRQ_PENDING_0       (0xFE00B200)
+#define ENABLE_IRQS_0       ((u32 *)0xFE00B210)
+#define ENABLE_IRQS(n)      ((ENABLE_IRQS_0 + ((n/32) * 4)))
 
-#define SYSTEM_TIMER_IRQ_0	(1 << 0)
-#define SYSTEM_TIMER_IRQ_1	(1 << 1)
-#define SYSTEM_TIMER_IRQ_2	(1 << 2)
-#define SYSTEM_TIMER_IRQ_3	(1 << 3)
+#define SYSTEM_TIMER_IRQ_0  (1 << 0)
+#define SYSTEM_TIMER_IRQ_1  (1 << 1)
+#define SYSTEM_TIMER_IRQ_2  (1 << 2)
+#define SYSTEM_TIMER_IRQ_3  (1 << 3)
 
 
 #define AUX_MU_BAUD(baud) ((AUX_UART_CLOCK/(baud*8))-1)
@@ -38,4 +38,4 @@ extern void irq_handle(unsigned int irq);
 
 extern void dummy();
 
-#endif   /* _PLAT_PROTO_H */
+#endif   /* PLAT_PROTO_H_ */

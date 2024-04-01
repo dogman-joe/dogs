@@ -1,8 +1,7 @@
 #include "dogclock.h"
 #include "string.h"
 
-void dogclock_init()
-{
+void dogclock_init() {
   memset(&dogclock, 0, sizeof(struct dogclock_info));
 
   dogclock.real_time = 1;
@@ -10,13 +9,11 @@ void dogclock_init()
   return;
 }
 
-void dogtick()
-{
+void dogtick() {
   dogclock.real_time++;
   plat_timer_irq_handle();
 
-  if (dogclock.real_time % 0x5000 != 0)
-  {
+  if (dogclock.real_time % 0x5000 != 0) {
     return;
   }
 
@@ -27,8 +24,7 @@ void dogtick()
   return;
 }
 
-void start_dogtime()
-{
+void start_dogtime() {
   irq_hook_t hook;
   hook.handler = dogtick;
 

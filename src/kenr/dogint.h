@@ -1,5 +1,5 @@
-#ifndef _DOG_INT_H
-#define _DOG_INT_H
+#ifndef DOGINT_H_
+#define DOGINT_H_
 
 #include "dogtypes.h"
 
@@ -10,4 +10,4 @@ extern void dogtick();
 /* number of lists of IRQ hooks, one list per supported line. */
 static irq_hook_t* irq_dogs[NUM_IRQ] = {0};
 
-#endif   /* _DOG_INT_H */
+#endif   /* DOGINT_H_ */

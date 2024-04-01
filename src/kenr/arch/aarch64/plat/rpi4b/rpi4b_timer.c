@@ -3,8 +3,7 @@
 
 struct rpi4b_timer *pi_timer;
 
-void plat_timer_init()
-{
+void plat_timer_init() {
   pi_timer = (struct rpi4b_timer *)TIMER_BASE;
 
   plat_irq_unmask(SYSTEM_TIMER_IRQ_1);
@@ -14,8 +13,7 @@ void plat_timer_init()
   return;
 }
 
-void plat_timer_irq_handle()
-{
+void plat_timer_irq_handle() {
   pi_timer->TIMER_C1 = pi_timer->TIMER_CL0 + 0x200;
 
   pi_timer->TIMER_CS = TIMER_CS_M1;
@@ -23,8 +21,7 @@ void plat_timer_irq_handle()
   return;
 }
 
-void plat_start_dogtime()
-{
+void plat_start_dogtime() {
   plat_timer_init();
 
   return;

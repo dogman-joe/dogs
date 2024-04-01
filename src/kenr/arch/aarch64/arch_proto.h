@@ -1,5 +1,5 @@
-#ifndef _ARCH_PROTO_H
-#define _ARCH_PROTO_H
+#ifndef ARCH_PROTO_H_
+#define ARCH_PROTO_H_
 
 #include "types.h"
 
@@ -12,4 +12,4 @@ extern void write_vbar();
 
 extern void plat_init();
 
-#endif   /* _ARCH_PROTO_H */
+#endif   /* ARCH_PROTO_H_ */

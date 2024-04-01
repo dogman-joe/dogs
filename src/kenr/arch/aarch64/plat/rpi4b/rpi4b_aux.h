@@ -1,19 +1,17 @@
-#ifndef _RPI4B_AUX_H
-#define _RPI4B_AUX_H
+#ifndef RPI4B_AUX_H_
+#define RPI4B_AUX_H_
 
 #include"types.h"
 
 #define AUX_BASE     0xFE215000
 #define MINI_BASE    0xFE215040
 
-struct rpi4b_aux
-{
+struct rpi4b_aux {
   u32 AUX_IRQ;
   u32 AUX_ENABLES;
 }__attribute__((packed, aligned(4)));
 
-struct rpi4b_aux_mini
-{
+struct rpi4b_aux_mini {
   u8  MU_IO[4];
   u32 MU_IER;
   u32 MU_IIR;
@@ -25,4 +23,4 @@ struct rpi4b_aux_mini
   u32 MU_BAUD;
 }__attribute__((packed, aligned(4)));
 
-#endif   /* _RPI4B_AUX_H */
+#endif   /* RPI4B_AUX_H_ */

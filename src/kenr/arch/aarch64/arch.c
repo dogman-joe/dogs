@@ -1,8 +1,7 @@
-#include "proto.h"
+#include "arch_proto.h"
 #include "stackframe.h"
 
-void arch_dogproc_init(struct stackframe_t *dog, int entry)
-{
+void arch_dogproc_init(struct stackframe_t *dog, int entry) {
   dog->lr = (reg_t)dog_spawn;
   dog->x19 = (reg_t)process;
   dog->x20 = (reg_t)entry;
@@ -11,8 +10,7 @@ void arch_dogproc_init(struct stackframe_t *dog, int entry)
 
   return;
 }
-void arch_init()
-{
+void arch_init() {
   write_vbar();
   plat_init();
 

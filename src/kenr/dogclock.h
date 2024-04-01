@@ -1,5 +1,5 @@
-#ifndef	_DOG_CLOCK_H
-#define	_DOG_CLOCK_H
+#ifndef DOGCLOCK_H_
+#define DOGCLOCK_H_
 
 #include "dogtypes.h"
 
@@ -14,6 +14,6 @@ extern void schedog();
 extern void enable_irq();
 extern void disable_irq();
 
-static struct dogclock_info dogclock;	/* dog clock table */
+static struct dogclock_info dogclock;   /* dog clock table */
 
-#endif  /*_DOG_CLOCK_H */
+#endif  /*DOGCLOCK_H_*/

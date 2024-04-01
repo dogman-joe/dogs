@@ -1,7 +1,7 @@
 #include "types.h"
 #include "arch/armv7-a/io.h"
 
-//LED
+// LED
 #define GPIO1_BASE              0x4804C000
 #define GPIO1_OE                (GPIO1_BASE+0x134)
 #define GPIO1_CLEARDATAOUT      (GPIO1_BASE+0x190)
@@ -15,28 +15,25 @@ extern void dummy(void);
 
 int inited = 0;
 
-void led_init()
-{
+void led_init() {
   inited = 1;
   /* Wake up GPIO1 Clk */
-  PUT32(CM_PER_GPIO1_CLKCTRL,2);
+  PUT32(CM_PER_GPIO1_CLKCTRL, 2);
 
-  while(1)
-  {
-    if((GET32(CM_PER_GPIO1_CLKCTRL)&0x00030000)==0)
+  while (1) {
+    if ((GET32(CM_PER_GPIO1_CLKCTRL) & 0x00030000) == 0)
       break;
   }
 
   /*enable output for pin*/
-  PUT32(GPIO1_OE,0xFE1FFFFF);
+  PUT32(GPIO1_OE, 0xFE1FFFFF);
 
   return;
 }
 
 
-void hello(unsigned int led)
-{
-  if(!inited)
+void hello(unsigned int led) {
+  if (!inited)
     led_init();
 
   int a = 0;
@@ -47,19 +44,16 @@ void hello(unsigned int led)
   led = 1 << led;
   led = led << 21;
 
-  while(1)
-  {
-    PUT32(GPIO1_SETDATAOUT,led);
+  while (1) {
+    PUT32(GPIO1_SETDATAOUT, led);
 
-    for (int i = 0; i < 0x80000; i++)
-    {
+    for (int i = 0; i < 0x80000; i++) {
       a++;
     }
 
     PUT32(GPIO1_CLEARDATAOUT, led);
 
-    for (int i = 0; i < 0x80000; i++)
-    {
+    for (int i = 0; i < 0x80000; i++) {
       b++;
     }
 
@@ -68,5 +62,4 @@ void hello(unsigned int led)
   }
 
   return;
-
 }

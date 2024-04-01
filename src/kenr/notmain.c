@@ -1,8 +1,6 @@
 #include "proto.h"
 
-int notmain ( void )
-{
-
+int notmain(void) {
   /* initialize process table */
   dogproc_init();
 
@@ -25,8 +23,7 @@ int notmain ( void )
   switch_context(&olddog, dog);
 
   /* never reach!! */
-  while(1)
-  {
+  while (1) {
   }
 
   return(0);
