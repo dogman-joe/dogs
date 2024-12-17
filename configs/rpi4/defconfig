@@ -1,5 +1,6 @@
 export PLAT=rpi4b
-export ARCH=aarch64
+export TOP_ARCH=arm
+export ARCH=armv8-a
 
 export ARMGNU ?= aarch64-none-elf
 export AOPS = --warn --fatal-warnings

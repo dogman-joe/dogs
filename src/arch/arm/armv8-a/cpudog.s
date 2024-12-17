@@ -33,12 +33,13 @@ master:
 
 skip:
     mov x0,x30
-    bl notmain
+    bl dogmain
 
 el1_entry:
 
     mov sp,#0x400000
-    bl      notmain
+    bl      dogmain
+
 .globl dog_spawn
 dog_spawn:
    mov x0, x20

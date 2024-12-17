@@ -1,4 +1,4 @@
-MODULES=libdogs kenr
+MODULES=libdogs kenr arch
 
 all:
 	for dir in $(MODULES); do \

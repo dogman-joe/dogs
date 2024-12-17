@@ -24,7 +24,7 @@ _head:
     msr cpsr_c, MODE_SVC
     ldr sp, =_kenr_stack_end
 
-    bl notmain
+    bl dogmain
 hang: b hang
 
 .globl write_vbar
