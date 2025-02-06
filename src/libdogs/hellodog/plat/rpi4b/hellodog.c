@@ -10,7 +10,7 @@ void process(u32 num) {
       a++;
     for (int i = 0; i < num + 1; i++)
       dogprint("proc");
-      
+
     dogprint("\r\n");
   }
 

@@ -1,6 +1,6 @@
 #include "proto.h"
 
-int notmain(void) {
+int dogmain(void) {
   /* initialize process table */
   dogproc_init();
 

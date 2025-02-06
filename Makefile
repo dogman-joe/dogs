@@ -20,12 +20,12 @@ distclean:
 
 OFILES=$(wildcard ${BUILD_DIR}/*.o)
 
-${BUILD_DIR}/notmain.elf : memmap ${OBJFILES}
+${BUILD_DIR}/dogmain.elf : memmap ${OBJFILES}
 	echo ${OFILES}
-	$(ARMGNU)-ld ${OFILES} -T memmap -o ${BUILD_DIR}/notmain.elf
-	$(ARMGNU)-objdump -D ${BUILD_DIR}/notmain.elf > notmain.list
+	$(ARMGNU)-ld ${OFILES} -T memmap -o ${BUILD_DIR}/dogmain.elf
+	$(ARMGNU)-objdump -D ${BUILD_DIR}/dogmain.elf > dogmain.list
 
-dog.bin : ${BUILD_DIR}/notmain.elf
-	$(ARMGNU)-objcopy ${BUILD_DIR}/notmain.elf -O binary dog.bin
+dog.bin : ${BUILD_DIR}/dogmain.elf
+	$(ARMGNU)-objcopy ${BUILD_DIR}/dogmain.elf -O binary dog.bin
 	cat dog.bin > kernel8.img
 
