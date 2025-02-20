@@ -1,10 +1,3 @@
-.data
-
-.equ SCTLR_VALUE, 0x30d00800
-.equ HCR_VALUE,   0x80000000
-.equ SCR_VALUE,   0x00000431
-.equ SPSR_VALUE,  0x000001C5
-
 .section ".text"
 .balign	0x100
 
@@ -13,32 +6,15 @@ get_el:
     mrs x0, CurrentEL
     lsr x0, x0, #2
     ret
-.globl master
-master:
-    ldr	x0, =SCTLR_VALUE
-    msr	sctlr_el1, x0
-    ldr	x0, =HCR_VALUE
-    msr	hcr_el2, x0
+.globl get_hcr
+get_hcr:
+    mrs x0, hcr_el2
+    ret
+.globl get_spsr
+get_spsr:
+    mrs x0, spsr_el2
+    ret
 
-    ldr	x0, =SCR_VALUE
-    msr	scr_el3, x0
-
-    ldr	x0, =SPSR_VALUE
-    msr	spsr_el3, x0
-
-    adr	x0, el1_entry
-    msr	elr_el3, x0
-
-    eret
-
-skip:
-    mov x0,x30
-    bl dogmain
-
-el1_entry:
-
-    mov sp,#0x400000
-    bl      dogmain
 
 .globl dog_spawn
 dog_spawn:

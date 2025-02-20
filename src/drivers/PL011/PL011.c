@@ -1,45 +1,9 @@
-#ifndef ARCH_PROTO_H_
-#define ARCH_PROTO_H_
-
-#include "plat_proto.h"
 #include "types.h"
+#include "arch/armv8-a/io.h"
 
+/* TODO: Flesh out driver more */
 
-/* hellodog */
-
-extern void process(u32 num);
-
-extern void enable_interrupt_controller();
-extern void dog_spawn();
-
-extern void write_vbar();
-
-/* gic_V3 */
-
-typedef struct {
-  u64 gic_ifregs_base;
-  u64 gic_dregs_base;
-} gic_plat_config;
-
-static const gic_plat_config plat_gic_config = {
-  .gic_ifregs_base = GICC_BASE,
-  .gic_dregs_base = GICD_BASE
-};
-
-extern void gic_eoi(u32 irq);
-extern void gic_init(const gic_plat_config *gic_config);
-extern u16 gicc_acknowledge_int();
-
-/* Generic Timer */
-
-#define GENERIC_TIMER_INT_NO 27
-
-u32 cntfrq; /* generic timer frequency */
-
-extern void generic_timer_init();
-extern void generic_timer_handle();
-
-/* PL011 */
+/* PL011 UART registers */
 
 typedef volatile struct __attribute__((packed)) {
         u32 DR;                 /* 0x0 Data Register */
@@ -60,16 +24,25 @@ typedef volatile struct __attribute__((packed)) {
         u32 DMACR;              /* 0x48 DMA control register */
 } pl011_registers;
 
-pl011_registers *console;
+int plat_putc(pl011_registers *uart, unsigned int c) {
+    // wait until we can send
+  do {
+      asm volatile("nop");
+  } while (uart->FR&0x20);
+  // write the character to the buffer
+  uart->DR = c;
 
-extern int pl011_init(pl011_registers *base);
+  return 0;
+}
 
-/* Console */
+void pl011_init(pl011_registers *uart) {
+  uart->CR = 0;
+  /* clear interrupts */
+  uart->ICR = 0x7FF;
+  /* 8 data bits 1 stop bit */
+  uart->LCRH = 0b11 << 5;
+  /* enable TX RX FIFO */
+  uart-> CR = 0x301;
 
-extern void dogprint_init();
-extern int dogprint(char *s);
-
-extern void enable_irq();
-extern void irq_handle(unsigned int irq);
-
-#endif   /* ARCH_PROTO_H_ */
+  return;
+}

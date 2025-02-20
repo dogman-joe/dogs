@@ -7,8 +7,8 @@
 
 extern void put_dogint_handler(u32 irq, irq_hook_t* irq_hook);
 
-extern void plat_start_dogtime();
-extern void plat_timer_irq_handle();
+extern void arch_start_dogtime();
+extern void arch_clock_irq_handle();
 
 extern void schedog();
 extern void enable_irq();

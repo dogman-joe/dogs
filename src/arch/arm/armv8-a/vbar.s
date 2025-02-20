@@ -17,8 +17,8 @@
     stp x28, x29, [sp, #-16]!
     stp x30, xzr, [sp, #-16]!
 
-    mrs x2, elr_el1
-    mrs x3, spsr_el1
+    mrs x2, elr_el2
+    mrs x3, spsr_el2
 
     stp x2, x3, [sp, #-16]!
 .endm
@@ -26,8 +26,8 @@
 .macro	kernel_exit
     ldp x2, x3, [sp], #16
 
-    msr spsr_el1, x3
-    msr elr_el1, x2
+    msr spsr_el2, x3
+    msr elr_el2, x2
 
     ldp x30, xzr, [sp], #16
     ldp x28, x29, [sp], #16
@@ -69,7 +69,7 @@ vectors:
     b not_yet_implemented
     .balign 0x80
 
-    b el1_irq
+    b same_el_irq
     .balign 0x80
 
     b not_yet_implemented
@@ -105,15 +105,15 @@ vectors:
 not_yet_implemented:
     b err_hang
 
-el1_irq:
+same_el_irq:
     kernel_entry
-    bl	plat_handle_irq
+    bl arch_handle_irq
     kernel_exit
 
 .globl write_vbar
 write_vbar:
     adr	x0, vectors
-    msr	vbar_el1, x0
+    msr	vbar_el2, x0
     ret
 
 .globl enable_irq

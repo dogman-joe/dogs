@@ -9,11 +9,13 @@ void dogclock_init() {
   return;
 }
 
+extern int dogprint(char *s);
+
 void dogtick() {
   dogclock.real_time++;
-  plat_timer_irq_handle();
+  arch_clock_irq_handle();
 
-  if (dogclock.real_time % 0x5000 != 0) {
+  if (dogclock.real_time % 0x5 != 0) {
     return;
   }
 
@@ -30,7 +32,7 @@ void start_dogtime() {
 
   put_dogint_handler(DOG_CLOCK_IRQ_N, &hook);
 
-  plat_start_dogtime();
+  arch_start_dogtime();
 
   return;
 }

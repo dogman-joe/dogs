@@ -1,12 +1,12 @@
 #include "types.h"
 
-extern int dogprint(char *c);
+extern int dogprint(char *s);
 
 void process(u32 num) {
-  int a = 0;
+  int a;
 
   while (1) {
-    for (int i = 0; i < 0x80000; i++)
+    for (int i = 0; i < 0xfffffff; i++)
       a++;
     for (int i = 0; i < num + 1; i++)
       dogprint("proc");
