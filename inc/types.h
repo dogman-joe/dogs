@@ -1,5 +1,5 @@
-#ifndef _TYPES_H
-#define _TYPES_H
+#ifndef TYPES_H_
+#define TYPES_H_
 
 
 /* Time stuff */
@@ -15,4 +15,4 @@ typedef unsigned short       u16;
 typedef unsigned int         u32;
 typedef unsigned long long   u64;
 
-#endif   /* _TYPES_H */
+#endif   /* TYPES_H_ */

@@ -1,11 +1,10 @@
-#ifndef _STRING_H
-#define _STRING_H
+#ifndef STRING_H_
+#define STRING_H_
 
 #include "types.h"
 
 
-void *memset (void *dest, register u32 val, register size_t len)
-{
+void *memset(void *dest, register u32 val, register size_t len) {
   register unsigned char *ptr = (unsigned char*)dest;
   while (len-- > 0)
     *ptr++ = val;
@@ -13,4 +12,4 @@ void *memset (void *dest, register u32 val, register size_t len)
   return dest;
 }
 
-#endif   /* _STRING_H */
+#endif   /* STRING_H_ */

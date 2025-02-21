@@ -18,4 +18,5 @@ extern void arch_init();
 
 extern void irq_init();
 
+extern int dogprint(char *s);
 #endif   /* PROTO_H_ */

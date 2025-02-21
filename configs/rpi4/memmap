@@ -3,7 +3,7 @@ EXTERN(_head)
 
 MEMORY
 {
-    ram : ORIGIN = 0x0000, LENGTH = 0x20000
+    ram : ORIGIN = 0x200000, LENGTH = 0x20000
 }
 
 SECTIONS
