@@ -1,4 +1,4 @@
-export PLAT=rpi4b
+export PLAT=qemu-a57
 export TOP_ARCH=arm
 export ARCH=armv8-a
 

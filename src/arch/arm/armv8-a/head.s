@@ -5,7 +5,8 @@
 _start:
     mrs x0, mpidr_el1
     and x0, x0, #3
-    mov sp, #0x400000
+    ldr x30, =stack_top	// setup stack
+    mov sp, x30
 
     cbz x0, dogmain
     b hang

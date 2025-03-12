@@ -1,4 +1,5 @@
 #include "dogproc.h"
+#include "string.h"
 
 int cur, next;
 
@@ -26,6 +27,7 @@ void dogproc_init(void) {
   u32 i = 0;
 
   for (dog = BEG_PROC_ADDR, i = 0; i < NUM_DOGS; dog++, i++) {
+    memset(dog, 0, sizeof(struct dogproc));
     dog->did = i;
 
     arch_dogproc_init(&dog->p_reg, i);

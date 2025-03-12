@@ -1,5 +1,4 @@
 #include "arch_proto.h"
-#include "stackframe.h"
 
 void arch_dogproc_init(struct stackframe_t *dog, int entry) {
   dog->lr = (reg_t)dog_spawn;
@@ -8,7 +7,7 @@ void arch_dogproc_init(struct stackframe_t *dog, int entry) {
 
   /* for now we use root tasks sp at static location
    *  TODO: change this to be dynamic */
-  dog->sp = (reg_t)0x400000 + ((entry + 1) * 0x1000);
+  dog->sp = (reg_t)&stack_top + ((entry + 1) * 0x4000);
 
   return;
 }
