@@ -3,7 +3,7 @@ EXTERN(_head)
 
 MEMORY
 {
-    ram : ORIGIN = 0x200000, LENGTH = 0x20000
+    ram : ORIGIN = 0x40000000, LENGTH = 0x20000
 }
 
 SECTIONS
@@ -27,5 +27,4 @@ SECTIONS
     . = ALIGN(16);
     . = . + 0x4000; /* 16kB of stack memory */
     stack_top = .;
-
 }

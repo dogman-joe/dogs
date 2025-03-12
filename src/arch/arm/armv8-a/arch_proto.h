@@ -3,7 +3,9 @@
 
 #include "plat_proto.h"
 #include "types.h"
+#include "stackframe.h"
 
+extern reg_t stack_top;
 
 /* hellodog */
 
@@ -68,6 +70,7 @@ extern int pl011_init(pl011_registers *base);
 
 extern void dogprint_init();
 extern int dogprint(char *s);
+extern int dogprintnum(u64 x);
 
 extern void enable_irq();
 extern void irq_handle(unsigned int irq);
