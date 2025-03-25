@@ -3,7 +3,7 @@
 
 #include "types.h"
 
-int putc(const u8 c);
+int putc(const char c);
 
 typedef u64 console;
 
