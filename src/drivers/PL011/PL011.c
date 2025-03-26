@@ -1,4 +1,5 @@
 #include "types.h"
+#include "drivers.h"
 #include "arch/armv8-a/io.h"
 
 /* TODO: Flesh out driver more */
@@ -24,8 +25,9 @@ typedef volatile struct __attribute__((packed)) {
         u32 DMACR;              /* 0x48 DMA control register */
 } pl011_registers;
 
+
 int plat_putc(pl011_registers *uart, unsigned int c) {
-    // wait until we can send
+  // wait until we can send
   do {
       asm volatile("nop");
   } while (uart->FR&0x20);
@@ -45,4 +47,12 @@ void pl011_init(pl011_registers *uart) {
   uart-> CR = 0x301;
 
   return;
+}
+
+/* TODO: Setup AMBA driver to probe for precense of device
+ *  for now we assume its there */
+int pl011_probe(dt_node_info *pl011_node_info) {
+  pl011_init((pl011_registers *)pl011_node_info->reg_vals[0]);
+
+  return 0;
 }

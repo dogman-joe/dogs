@@ -6,5 +6,5 @@ export ARMGNU ?= aarch64-none-elf
 export AOPS = --warn --fatal-warnings
 export COPS = -I${INC_DIR} -I${LIBC_DIR} -Wall -Werror -nostdlib -nostartfiles -nodefaultlibs -ffreestanding -fno-lto
 
-export LIBDOGS = dogprint hellodog
+export LIBDOGS = dogprint hellodog dogtb
 export DRIVEDOGS = timer gic_v3 PL011
