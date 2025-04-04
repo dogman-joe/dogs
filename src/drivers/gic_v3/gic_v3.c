@@ -1,5 +1,6 @@
 #include "types.h"
 #include "arch/armv8-a/io.h"
+#include "drivers.h"
 
 /* TODO: Flesh out driver more */
 
@@ -72,6 +73,17 @@ typedef u32 irq_no;       /* IRQ no */
 
 static gic_distributor_regs *gic_dregs;
 static gic_cpu_interface_regs *gic_ifregs;
+
+typedef struct {
+  gic_cpu_interface_regs *gic_ifregs_base;
+  gic_distributor_regs   *gic_dregs_base;
+} gic_plat_config;
+
+
+static gic_plat_config plat_gic_config = {
+  .gic_ifregs_base = 0,
+  .gic_dregs_base = 0
+};
 
 static void gicd_disable_int(irq_no irq) {
   u8 reg, bit;
@@ -209,17 +221,23 @@ void init_gicd() {
   return;
 }
 
-typedef struct {
-  gic_cpu_interface_regs *gic_ifregs_base;
-  gic_distributor_regs   *gic_dregs_base;
-} gic_plat_config;
-
 void gic_init(gic_plat_config *gic_config) {
   gic_dregs = gic_config->gic_dregs_base;
   gic_ifregs = gic_config->gic_ifregs_base;
 
   init_gicd();
   init_gicc();
+
+  return;
+}
+
+void gic_probe(dt_node_info *gic_node_info) {
+  plat_gic_config.gic_dregs_base =
+        (gic_distributor_regs *)gic_node_info->reg_vals[0];
+  plat_gic_config.gic_ifregs_base =
+        (gic_cpu_interface_regs *)gic_node_info->reg_vals[2];
+
+  gic_init(&plat_gic_config);
 
   return;
 }

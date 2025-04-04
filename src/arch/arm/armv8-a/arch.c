@@ -13,9 +13,20 @@ void arch_dogproc_init(struct stackframe_t *dog, int entry) {
 }
 
 void arch_console_init() {
-  /* Enable output to console */
-  pl011_init((pl011_registers *)UART0_BASE);
-  dogprint_init((pl011_registers *)UART0_BASE);
+  dt_node_info *node_ptr;
+
+  for (int i = 0; i < 1; i++) {
+    node_ptr = find_compatible((dtb_header *)DOGTB_ADDRESS,
+    console_driver_table[i].name);
+
+    if (node_ptr) {
+      console_driver_table[i].probe(node_ptr);
+      /* Enable output to console */
+      dogprint_init((console *)node_ptr->reg_vals[0]);
+
+      return;
+    }
+  }
 
   return;
 }
@@ -49,8 +60,21 @@ void arch_clock_irq_handle() {
 }
 
 void irq_init() {
+  dt_node_info *node_ptr;
+  int num_drivers = sizeof(intc_driver_table) / sizeof(driver_table_info);
+
+  for (int i = 0; i < num_drivers; i++) {
+    node_ptr = find_compatible((dtb_header *)DOGTB_ADDRESS,
+      intc_driver_table[i].name);
+
+      if (node_ptr) {
+        gic_probe(node_ptr);
+      } else {
+        dogprint("failed to init interrupt controller!!\r\n");
+        return;
+      }
+  }
   /* init gic_v3 */
-  gic_init(&plat_gic_config);
   dogprint("initialized GIC\r\n");
 
   /* unmask IRQ bit in DAIF */

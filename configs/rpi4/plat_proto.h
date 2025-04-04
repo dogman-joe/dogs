@@ -4,9 +4,6 @@
 #include "types.h"
 #include "arch/armv7-a/io.h"
 
-#define UART0_BASE        ((unsigned int *)(0xFE201000))
-
-#define GICD_BASE (0xFF841000)
-#define GICC_BASE (0xFF842000)
+#define DOGTB_ADDRESS 0x1f0000
 
 #endif   /* PLAT_PROTO_H_ */
