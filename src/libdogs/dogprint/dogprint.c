@@ -1,10 +1,19 @@
 #include "dogprint_proto.h"
+#include "stdint.h"
 #include "types.h"
 
 void dogprint_init(console *console_base) {
   stdoutdog = console_base;
 
   return;
+}
+
+int dogprintbyte(uint8_t byte) {
+  const char hex_chars[] = "0123456789ABCDEF";
+  putc(hex_chars[(byte >> 4) & 0xF]);  /* high nibble */
+  putc(hex_chars[byte & 0xF]);         /* low nibble */
+
+  return 0;
 }
 
 int dogprint(char *str) {
@@ -24,17 +33,15 @@ char hex_digits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
   'a', 'b', 'c', 'd', 'e', 'f'};
 
 int dogprintnum64(u64 x) {
-  u8 a;
-  u8 c;
-
   dogprint("0x");
 
-  for (int i = 0x14; i >=0; i--) {
-    // get digit for place
-    a = (x >> (i * 4)) & 0x0F;
-
-    c = hex_digits[a];
-    putc(c);
+  int started = 0;
+  for (int i = 60; i >= 0; i -= 4) {
+    uint8_t nibble = (x >> i) & 0xF;
+    if (nibble || started || i == 0) {
+      putc(hex_digits[nibble]);
+      started = 1;
+    }
   }
 
   dogprint("\r\n");
@@ -43,17 +50,15 @@ int dogprintnum64(u64 x) {
 }
 
 int dogprintnum(u32 x) {
-  u8 a;
-  u8 c;
-
   dogprint("0x");
 
-  for (int i = 7; i >=0; i--) {
-    // get digit for place
-    a = (x >> (i * 4)) & 0x0F;
-
-    c = hex_digits[a];
-    putc(c);
+  int started = 0;
+  for (int i = 28; i >= 0; i -= 4) {
+    uint8_t nibble = (x >> i) & 0xF;
+    if (nibble || started || i == 0) {
+      putc(hex_digits[nibble]);
+      started = 1;
+    }
   }
 
   dogprint("\r\n");
