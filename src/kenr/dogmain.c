@@ -1,12 +1,9 @@
-#include "proto.h"
-#include "types.h"
-
-extern int dogprint(char *s);
+#include "dogproc.h"
+#include "dogclock.h"
+#include "arch/arch.h"
+#include "libs/dogprint.h"
 
 int dogmain(void) {
-  struct dogproc kerndog;
-  struct dogproc *rootdog = &dogs[0];
-
   /* architecure specific init */
   arch_init();
 
@@ -32,7 +29,7 @@ int dogmain(void) {
   dogprint("\r\ndogs setup finished jumping to root task\r\n");
 
   /* switch to root dog */
-  switch_context(&kerndog, rootdog);
+  jump_to_rootdog();
 
   /* never reach!! */
   while (1) {

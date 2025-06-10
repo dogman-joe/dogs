@@ -1,6 +1,9 @@
 #include "dogprint_proto.h"
 #include "stdint.h"
-#include "types.h"
+
+int putc(const char c) {
+  return plat_putc(stdoutdog, (unsigned int)c);
+}
 
 void dogprint_init(console *console_base) {
   stdoutdog = console_base;
@@ -66,6 +69,4 @@ int dogprintnum(u32 x) {
   return 0;
 }
 
-int putc(const char c) {
-  return plat_putc(stdoutdog, (unsigned int)c);
-}
+

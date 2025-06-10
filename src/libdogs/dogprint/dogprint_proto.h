@@ -2,13 +2,10 @@
 #define DOGPRINT_PROTO_H_
 
 #include "types.h"
-
-int putc(const char c);
-
 typedef u64 console;
 
 console *stdoutdog;
 
-extern int plat_putc(console *console_base, const u8 c);
+int plat_putc(console *console_base, const u8 c);
 
 #endif  /*DOGPRINT_PROTO_H_*/

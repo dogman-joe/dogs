@@ -1,6 +1,13 @@
 #include "dogclock.h"
 #include "string.h"
 
+/* Clock Info Structure */
+struct dogclock_info {
+  time_t real_time;
+};
+
+static struct dogclock_info dogclock;   /* dog clock table */
+
 void dogclock_init() {
   memset(&dogclock, 0, sizeof(struct dogclock_info));
 
@@ -8,8 +15,6 @@ void dogclock_init() {
 
   return;
 }
-
-extern int dogprint(char *s);
 
 void dogtick() {
   dogclock.real_time++;

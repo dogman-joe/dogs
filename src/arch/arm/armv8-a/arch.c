@@ -69,11 +69,13 @@ void irq_init() {
 
       if (node_ptr) {
         gic_probe(node_ptr);
-      } else {
-        dogprint("failed to init interrupt controller!!\r\n");
-        return;
       }
   }
+  if (!node_ptr) {
+    dogprint("failed to init interrupt controller!!\r\n");
+    return;
+  }
+
   /* init gic_v3 */
   dogprint("initialized GIC\r\n");
 

@@ -1,9 +1,9 @@
 #ifndef STACKFRAME_H_
 #define STACKFRAME_H_
 
-#include "types.h"
+#include "stdint.h"
 
-typedef u64 reg_t; /* machine register */
+typedef uint64_t reg_t; /* machine register */
 
 struct stackframe_t {
   reg_t x19;

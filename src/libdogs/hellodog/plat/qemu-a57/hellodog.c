@@ -1,6 +1,5 @@
 #include "types.h"
-
-extern int dogprint(char *c);
+#include "libs/dogprint.h"
 
 void process(u32 num) {
   u32 a = 0;
