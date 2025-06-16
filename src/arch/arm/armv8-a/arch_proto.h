@@ -2,6 +2,8 @@
 #define ARCH_PROTO_H_
 
 #include "stdint.h"
+#include "stddef.h"
+#include "stdbool.h"
 #include "string.h"
 #include "plat_proto.h"
 #include "stackframe.h"

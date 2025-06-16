@@ -60,16 +60,18 @@ void arch_clock_irq_handle() {
 void arch_irq_init() {
   dt_node_info *node_ptr;
   int num_drivers = sizeof(intc_driver_table) / sizeof(driver_table_info);
+  bool initialized = false;
 
   for (int i = 0; i < num_drivers; i++) {
     node_ptr = find_compatible((dtb_header *)DOGTB_ADDRESS,
       intc_driver_table[i].name);
 
       if (node_ptr) {
+        initialized = true;
         gic_probe(node_ptr);
       }
   }
-  if (!node_ptr) {
+  if (initialized == false) {
     dogprint("failed to init interrupt controller!!\r\n");
     return;
   }
