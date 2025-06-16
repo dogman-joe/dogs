@@ -1,14 +1,17 @@
 #include "dogprint_proto.h"
+#include "libs/dogprint.h"
 #include "stdint.h"
+#include "stddef.h"
+
+static struct dogconsole *active_console = NULL;
 
 int putc(const char c) {
-  return plat_putc(stdoutdog, (unsigned int)c);
+  active_console->putc(c);
+  return 0;
 }
 
-void dogprint_init(console *console_base) {
-  stdoutdog = console_base;
-
-  return;
+void register_console(struct dogconsole *con) {
+  active_console = con;
 }
 
 int dogprintbyte(uint8_t byte) {

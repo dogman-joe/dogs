@@ -20,10 +20,8 @@ void arch_console_init() {
     console_driver_table[i].name);
 
     if (node_ptr) {
+      /* probe and init console */
       console_driver_table[i].probe(node_ptr);
-      /* Enable output to console */
-      dogprint_init((console *)node_ptr->regs[0].addr);
-
       return;
     }
   }

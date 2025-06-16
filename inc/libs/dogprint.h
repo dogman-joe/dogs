@@ -1,9 +1,14 @@
 #ifndef DOGPRINT_H_
 #define DOGPRINT_H_
 
-typedef u64 console;
+#include "stdint.h"
 
-void dogprint_init(console *console_base);
+struct dogconsole {
+  uintptr_t base_addr;
+  int (*putc)(const char);
+};
+
+void register_console(struct dogconsole *con);
 
 int dogprint(char *s);
 int dogprintnum(u32 x);

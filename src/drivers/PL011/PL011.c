@@ -1,5 +1,7 @@
 #include "types.h"
 #include "drivers.h"
+#include "libs/dogprint.h"
+#include "drivers/PL011.h"
 #include "arch/armv8-a/io.h"
 
 /* TODO: Flesh out driver more */
@@ -25,14 +27,17 @@ typedef volatile struct __attribute__((packed)) {
         u32 DMACR;              /* 0x48 DMA control register */
 } pl011_registers;
 
+static struct dogconsole pl011_con;
 
-int plat_putc(pl011_registers *uart, unsigned int c) {
-  // wait until we can send
+int pl011_putc(const char c) {
+  pl011_registers *uart = (pl011_registers *)pl011_con.base_addr;
+
+  /* wait until we can send */
   do {
       asm volatile("nop");
   } while (uart->FR&0x20);
-  // write the character to the buffer
-  uart->DR = c;
+  /* write the character to the buffer */
+  uart->DR = (unsigned int)c;
 
   return 0;
 }
@@ -53,6 +58,10 @@ void pl011_init(pl011_registers *uart) {
  *  for now we assume its there */
 int pl011_probe(dt_node_info *pl011_node_info) {
   pl011_init((pl011_registers *)pl011_node_info->regs[0].addr);
+  pl011_con.base_addr = pl011_node_info->regs[0].addr;
+  pl011_con.putc = pl011_putc;
+
+  register_console(&pl011_con);
 
   return 0;
 }
