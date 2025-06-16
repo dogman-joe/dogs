@@ -22,7 +22,7 @@ void arch_console_init() {
     if (node_ptr) {
       console_driver_table[i].probe(node_ptr);
       /* Enable output to console */
-      dogprint_init((console *)node_ptr->reg_vals[0]);
+      dogprint_init((console *)node_ptr->regs[0].addr);
 
       return;
     }
@@ -59,7 +59,7 @@ void arch_clock_irq_handle() {
   return;
 }
 
-void irq_init() {
+void arch_irq_init() {
   dt_node_info *node_ptr;
   int num_drivers = sizeof(intc_driver_table) / sizeof(driver_table_info);
 

@@ -52,7 +52,7 @@ void pl011_init(pl011_registers *uart) {
 /* TODO: Setup AMBA driver to probe for precense of device
  *  for now we assume its there */
 int pl011_probe(dt_node_info *pl011_node_info) {
-  pl011_init((pl011_registers *)pl011_node_info->reg_vals[0]);
+  pl011_init((pl011_registers *)pl011_node_info->regs[0].addr);
 
   return 0;
 }

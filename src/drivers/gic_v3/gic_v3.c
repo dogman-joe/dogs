@@ -233,9 +233,9 @@ void gic_init(gic_plat_config *gic_config) {
 
 void gic_probe(dt_node_info *gic_node_info) {
   plat_gic_config.gic_dregs_base =
-        (gic_distributor_regs *)gic_node_info->reg_vals[0];
+        (gic_distributor_regs *)gic_node_info->regs[0].addr;
   plat_gic_config.gic_ifregs_base =
-        (gic_cpu_interface_regs *)gic_node_info->reg_vals[2];
+        (gic_cpu_interface_regs *)gic_node_info->regs[1].addr;
 
   gic_init(&plat_gic_config);
 

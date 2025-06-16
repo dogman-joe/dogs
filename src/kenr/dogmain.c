@@ -19,7 +19,7 @@ int dogmain(void) {
 
 
   /* initialize interrupts for platform */
-  irq_init();
+  arch_irq_init();
   dogprint("dog arch interrupts initialized\r\n");
 
   /* start dog tick clock*/

@@ -14,6 +14,6 @@ void arch_dogproc_init(struct stackframe_t *dog, int entry);
 
 void enable_irq();
 void disable_irq();
-void irq_init();
+void arch_irq_init();
 
 #endif  /* ARCH_H_ */

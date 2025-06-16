@@ -5,7 +5,12 @@
 #include "stdint.h"
 
 typedef struct {
-  uint64_t reg_vals[8];
+    uintptr_t addr;
+    size_t size;
+} dt_reg;
+
+typedef struct {
+  dt_reg regs[4];
 } dt_node_info;
 
 typedef struct {
