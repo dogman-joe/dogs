@@ -1,6 +1,12 @@
 #ifndef TYPES_H_
 #define TYPES_H_
 
+typedef enum {
+  DOGSTATUS_SUCCESS,
+  DOGSTATUS_ERROR,
+} dog_status_t;
+
+
 
 /* Time stuff */
 typedef long int __time_t;

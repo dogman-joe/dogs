@@ -14,7 +14,7 @@ typedef struct {
   uint32_t struct_size; /* size of struct block */
 } dtb_header;
 
-extern dt_node_info* find_compatible(dtb_header *head, const char *name);
+dt_node_info* find_compatible(const dtb_header *head, const char *name);
 
 
 #endif   /* DOGTB_H_ */

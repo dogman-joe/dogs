@@ -1,6 +1,6 @@
 #include "types.h"
 #include "arch/armv8-a/io.h"
-#include "drivers.h"
+#include "drivers/gic_v3.h"
 
 /* TODO: Flesh out driver more */
 
@@ -69,7 +69,6 @@ typedef volatile struct __attribute__((packed)) {
   u32 CAHPPIR;            /* Aliased higher priority INT*/
 } gic_cpu_interface_regs;
 
-typedef u32 irq_no;       /* IRQ no */
 
 static gic_distributor_regs *gic_dregs;
 static gic_cpu_interface_regs *gic_ifregs;
@@ -221,17 +220,17 @@ void init_gicd() {
   return;
 }
 
-void gic_init(gic_plat_config *gic_config) {
+int gic_init(gic_plat_config *gic_config) {
   gic_dregs = gic_config->gic_dregs_base;
   gic_ifregs = gic_config->gic_ifregs_base;
 
   init_gicd();
   init_gicc();
 
-  return;
+  return 0;
 }
 
-void gic_probe(dt_node_info *gic_node_info) {
+int gic_probe(dt_node_info *gic_node_info) {
   plat_gic_config.gic_dregs_base =
         (gic_distributor_regs *)gic_node_info->regs[0].addr;
   plat_gic_config.gic_ifregs_base =
@@ -239,5 +238,5 @@ void gic_probe(dt_node_info *gic_node_info) {
 
   gic_init(&plat_gic_config);
 
-  return;
+  return 0;
 }

@@ -10,9 +10,9 @@ struct dogconsole {
 
 void register_console(struct dogconsole *con);
 
-int dogprint(char *s);
-int dogprintnum(u32 x);
-int dogprintnum64(u64 x);
+void dogprint(const char *s);
+void dogprintnum(u32 x);
+void dogprintnum64(u64 x);
 
 #endif  /*DOGPRINT_H_*/
 

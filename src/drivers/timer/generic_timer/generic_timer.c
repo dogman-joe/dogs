@@ -1,12 +1,12 @@
 #include "types.h"
 #include "arch/armv8-a/cpu.h"
+#include "drivers/gic_v3.h"
 
 #define TIMER_WAIT 1
 #define GENERIC_TIMER_INT_NO 27
 
 /* TODO: Flesh out driver more */
-extern void gic_register_int(u32 irq_no);
-extern u32 cntfrq;
+u32 cntfrq;
 
 void generic_timer_handle() {
   disable_cntv();

@@ -214,7 +214,7 @@ int parse_node_info(uint32_t *node, uint32_t *string_ptr) {
   return 0;
 }
 
-dt_node_info* find_compatible(dtb_header *head, const char *name) {
+dt_node_info* find_compatible(const dtb_header *head, const char *name) {
   uint32_t *struct_ptr = (uint32_t *)(uint64_t)be_32(head->struct_offset);
   uint32_t *string_ptr = (uint32_t *)((uint64_t)be_32(head->strings_offset));
   uint32_t *ret = 0;

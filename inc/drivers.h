@@ -14,7 +14,7 @@ typedef struct {
 } dt_node_info;
 
 typedef struct {
-  char name[0x20];
+  const char name[0x20];
   int (*probe)(dt_node_info *);
 } driver_table_info;
 

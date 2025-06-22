@@ -3,17 +3,17 @@
 
 #include "stackframe.h"
 
-void arch_init();
+void arch_init(void);
 
 /* CLOCK */
-void arch_clock_irq_handle();
-void arch_start_dogtime();
+void arch_clock_irq_handle(void);
+void arch_start_dogtime(void);
 
 /* PROCESS */
 void arch_dogproc_init(struct stackframe_t *dog, int entry);
 
-void enable_irq();
-void disable_irq();
-void arch_irq_init();
+void enable_irq(void);
+void disable_irq(void);
+void arch_irq_init(void);
 
 #endif  /* ARCH_H_ */
