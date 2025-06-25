@@ -1,10 +1,17 @@
+#include "arch/arch.h"
 #include "dogproc.h"
 #include "string.h"
 
 int cur, next;
 
+#define NUM_DOGS       0x03
+
+struct dogproc dogs[NUM_DOGS];   /* process table */
+
 /* Proc Table */
 #define BEG_PROC_ADDR (&dogs[0])
+
+
 
 struct dogproc dogs[NUM_DOGS];  /* process table */
 
@@ -16,6 +23,16 @@ void schedog() {
 
   cur = next;
   switch_context(olddog, dog);
+
+  return;
+}
+
+void jump_to_rootdog() {
+  /* root dog proc */
+  struct dogproc *rootdog = &dogs[0];
+  /* kernel dog proc */
+  struct dogproc kerndog;
+  switch_context(&kerndog, rootdog);
 
   return;
 }

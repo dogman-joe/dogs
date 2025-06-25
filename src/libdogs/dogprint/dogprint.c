@@ -1,38 +1,43 @@
 #include "dogprint_proto.h"
+#include "libs/dogprint.h"
 #include "stdint.h"
-#include "types.h"
+#include "stddef.h"
 
-void dogprint_init(console *console_base) {
-  stdoutdog = console_base;
+static struct dogconsole *active_console = NULL;
 
-  return;
-}
-
-int dogprintbyte(uint8_t byte) {
-  const char hex_chars[] = "0123456789ABCDEF";
-  putc(hex_chars[(byte >> 4) & 0xF]);  /* high nibble */
-  putc(hex_chars[byte & 0xF]);         /* low nibble */
-
+int putc(const char c) {
+  active_console->putc(c);
   return 0;
 }
 
-int dogprint(char *str) {
-  char *c = str;
+void register_console(struct dogconsole *con) {
+  active_console = con;
+}
+
+void dogprint(const char *str) {
+  const char *c = str;
 
   while (*c != '\0') {
     if (putc(*c) == 0)
       c++;
     else
-      return -1;
+      break;
   }
 
-  return 0;
+  return;
 }
 
 char hex_digits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
   'a', 'b', 'c', 'd', 'e', 'f'};
 
-int dogprintnum64(u64 x) {
+void dogprintbyte(uint8_t byte) {
+  putc(hex_digits[(byte >> 4) & 0xF]);  /* high nibble */
+  putc(hex_digits[byte & 0xF]);         /* low nibble */
+
+  return;
+}
+
+void dogprintnum64(u64 x) {
   dogprint("0x");
 
   int started = 0;
@@ -46,10 +51,10 @@ int dogprintnum64(u64 x) {
 
   dogprint("\r\n");
 
-  return 0;
+  return;
 }
 
-int dogprintnum(u32 x) {
+void dogprintnum(u32 x) {
   dogprint("0x");
 
   int started = 0;
@@ -63,9 +68,7 @@ int dogprintnum(u32 x) {
 
   dogprint("\r\n");
 
-  return 0;
+  return;
 }
 
-int putc(const char c) {
-  return plat_putc(stdoutdog, (unsigned int)c);
-}
+

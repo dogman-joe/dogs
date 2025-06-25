@@ -5,5 +5,6 @@
 #include "arch/armv7-a/io.h"
 
 #define DOGTB_ADDRESS 0x1f0000
+#define GET_DTB_PTR() ((dtb_header *)(DOGTB_ADDRESS))
 
 #endif   /* PLAT_PROTO_H_ */

@@ -1,15 +1,23 @@
 #ifndef DOGPROC_H_
 #define DOGPROC_H_
 
-#include "dogtypes.h"
+#include "types.h"
+#include "arch/arch.h"
 
-extern void switch_context(struct dogproc *, struct dogproc *);
+/* Dog proc Structure */
+struct dogproc {
+  struct stackframe_t p_reg;   /* process' registers saved in stack frame */
+  u32 did;                     /* dog process id */
+  u32 p_magic;
+};
 
-extern void arch_dogproc_init(struct stackframe_t *dog, int entry);
+
+void dogproc_init(void);
+
+void jump_to_rootdog();
+
+void switch_context(struct dogproc *, struct dogproc *);
 
 #define DOG_PROC_MAGIC 0xBADB
-#define NUM_DOGS       0x03
-
-extern struct dogproc dogs[NUM_DOGS];   /* process table */
 
 #endif /* DOGPROC_H_ */

@@ -1,3 +1,5 @@
+#include <cpu_arch.h>
+
 .macro  kernel_entry
     add sp, sp, #-16
     stp x0, x1, [sp, #-16]!

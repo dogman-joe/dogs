@@ -37,7 +37,6 @@ char prop_value[0x100];
 char prop_sub_value[0x100];
 dt_node_info return_node;
 
-/* TODO: add DT lib init function to detect these in root node */
 size_t parent_size_cells = 0;
 size_t parent_address_cells = 0;
 
@@ -187,19 +186,23 @@ int parse_node_info(uint32_t *node, uint32_t *string_ptr) {
 
         for (int i = 0, j = 0; i < cur_property->length / 4; ) {
           if (parent_address_cells == 2) {
-            return_node.reg_vals[j++] =
+            return_node.regs[j].addr =
                   be_32(reg_val[i]) + be_32(reg_val[i + 1]);
           } else {
-            return_node.reg_vals[j++] = be_32(reg_val[i]);
+            return_node.regs[j].addr = be_32(reg_val[i]);
           }
+          /* increment read location */
           i += parent_address_cells;
 
           if (parent_size_cells == 2) {
-            return_node.reg_vals[j++] =
+            return_node.regs[j].size =
                   be_32(reg_val[i]) + be_32(reg_val[i + 1]);
           } else {
-            return_node.reg_vals[j++] = be_32(reg_val[i]);
+            return_node.regs[j].size = be_32(reg_val[i]);
           }
+          /* go to next dt reg struct */
+          j++;
+          /* increment read location */
           i += parent_size_cells;
         }
       }
@@ -211,7 +214,7 @@ int parse_node_info(uint32_t *node, uint32_t *string_ptr) {
   return 0;
 }
 
-dt_node_info* find_compatible(dtb_header *head, const char *name) {
+dt_node_info* find_compatible(const dtb_header *head, const char *name) {
   uint32_t *struct_ptr = (uint32_t *)(uint64_t)be_32(head->struct_offset);
   uint32_t *string_ptr = (uint32_t *)((uint64_t)be_32(head->strings_offset));
   uint32_t *ret = 0;

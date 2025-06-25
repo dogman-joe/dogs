@@ -15,7 +15,6 @@ get_spsr:
     mrs x0, spsr_el2
     ret
 
-
 .globl dog_spawn
 dog_spawn:
    mov x0, x20
