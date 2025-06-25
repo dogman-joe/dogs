@@ -1,11 +1,12 @@
 #ifndef DOGPRINT_H_
 #define DOGPRINT_H_
 
+#include "types.h"
 #include "stdint.h"
 
 struct dogconsole {
   uintptr_t base_addr;
-  int (*putc)(const char);
+  dog_status_t (*putc)(const char);
 };
 
 void register_console(struct dogconsole *con);

@@ -4,9 +4,8 @@
 typedef enum {
   DOGSTATUS_SUCCESS,
   DOGSTATUS_ERROR,
+  DOGSTATUS_INVALID_PARAM
 } dog_status_t;
-
-
 
 /* Time stuff */
 typedef long int __time_t;
@@ -20,5 +19,7 @@ typedef unsigned char        u8;
 typedef unsigned short       u16;
 typedef unsigned int         u32;
 typedef unsigned long long   u64;
+
+#define BIT(bit) ((u32)(1U << (bit)))
 
 #endif   /* TYPES_H_ */

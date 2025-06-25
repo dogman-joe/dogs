@@ -42,7 +42,11 @@ static void arch_console_init(void) {
 
     if (node_ptr != NULL) {
       /* probe and init console */
-      console_driver_table[i].probe(node_ptr);
+      dog_status_t status = console_driver_table[i].probe(node_ptr);
+
+      if (status != DOGSTATUS_SUCCESS) {
+        /* TODO: add log to log failure */
+      }
     }
   }
 
@@ -63,18 +67,18 @@ void arch_dogproc_init(struct stackframe_t *dog, int entry) {
   return;
 }
 
-void arch_start_dogtime(void) {
+dog_status_t arch_start_dogtime(void) {
   /* aarch64 arch uses generic timer for global clock */
-  generic_timer_init();
+  dog_status_t status  = generic_timer_init();
 
-  return;
+  return status;
 }
 
 void arch_handle_irq(void) {
   u16 irq_no = gicc_acknowledge_int();
 
   /* handle pending irq if generic timer use our dogtick function */
-  if (irq_no == GENERIC_TIMER_INT_NO) {
+  if (irq_no == GENERIC_TIMER_IRQ_NO) {
     irq_handle(0);
   } else {
     irq_handle(irq_no);
@@ -86,7 +90,7 @@ void arch_handle_irq(void) {
 void arch_clock_irq_handle(void) {
   /* handle generic timer interrupt after firing */
   generic_timer_handle();
-  gic_eoi(27);
+  gic_eoi(GENERIC_TIMER_IRQ_NO);
 
   return;
 }

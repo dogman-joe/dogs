@@ -3,6 +3,7 @@
 /* Driver Table */
 
 #include "stdint.h"
+#include "types.h"
 
 typedef struct {
     uintptr_t addr;
@@ -15,7 +16,7 @@ typedef struct {
 
 typedef struct {
   const char name[0x20];
-  int (*probe)(dt_node_info *);
+  dog_status_t (*probe)(dt_node_info *);
 } driver_table_info;
 
 

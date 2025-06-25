@@ -3,8 +3,8 @@
 
 #include "types.h"
 
-#define MRS(reg, v)  asm volatile("mrs %x0," reg : "=r"(v))
-#define MSR(reg, v)  asm volatile("msr " reg ",%x0" : "=r"(v))
+#define MRS(reg, v) __asm volatile("mrs %x0," reg : "=r"(v))
+#define MSR(reg, v) __asm volatile("msr " reg ",%x0" : "=r"(v))
 
 /* Generic Timer */
 
@@ -29,9 +29,9 @@
  * Holds the compare value for the virtual timer
  */
 
-#define CNTV_CTL_ENABLE      (1 << 0)   /* Enables the timer */
-#define CNTV_CTL_IMASK       (1 << 1)   /* Timer interrupt mask bit */
-#define CNTV_CTL_ISTATUS     (1 << 2)   /* The status of the timer interrupt */
+#define CNTV_CTL_ENABLE      ((u32)(1U << 0))   /* Enables the timer */
+#define CNTV_CTL_IMASK       ((u32)(1U << 1))   /* Timer interrupt mask bit */
+#define CNTV_CTL_ISTATUS     ((u32)(1U << 2))   /* Timer interrupt status */
 
 /* CNTV_CTL_EL0, Counter-timer Virtual Timer Control register
  * Control register for the virtual timer
